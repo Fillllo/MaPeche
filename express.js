@@ -2,14 +2,14 @@ var express = require("express");
 var mysql = require("mysql");
 var app = express();
 app.use(express.json());
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8080;
 
 //partie SQL
 var client = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "resahotel",
+  database: "ma_peche",
 });
 
 client.connect((err) => {
@@ -45,7 +45,7 @@ app.delete("/:table/:id/_delete", function (req, res) {
   deleteHotel(req.params.table, req.params.id, res);
 });
 
-app.get("/:table/:id/_get", function (req, res) {
+app.get("/:table/:mail/:mdp/_get", function (req, res) {
   
  
   getHotel(req.params.table, req.params.id, res);
@@ -134,16 +134,17 @@ function deleteHotel(table, id, res){
   );
 }
 
-function getHotel(table, id, res){
+function getAccount(table, mail, password, res){
   client.query(
     "SELECT * FROM " +
       table +
-      " WHERE idHotel = '" +
-      id +
-      "'",
+      " WHERE adresse_mail LIKE '" +
+      mail +
+      "' AND mdp LIKE '" +
+      password + "'",
     function (err, rows, fields) {
       
-      console.log(rows["idHotel"]);
+      console.log(rows);
       if (!err) {
         console.log("Requête réussie");
         res.json({
