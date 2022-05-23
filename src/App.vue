@@ -25,7 +25,7 @@ nav {
 nav a {
   font-weight: bold;
   padding: 30px;
-  color: #2c3e50;
+  color: blue;
 
 }
 
