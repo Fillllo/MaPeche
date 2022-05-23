@@ -2,7 +2,7 @@
   <div>
     <nav>
       <router-link to="/">Accueil</router-link>
-      <router-link to="/about">Carte</router-link>
+      <router-link to="/carte">Carte</router-link>
     </nav>
     <router-view/>
   </div>
