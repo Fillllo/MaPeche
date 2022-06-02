@@ -47,7 +47,7 @@ export default {
       zoom: 13,
       width: 100,
       center: latLng(47.41322, -1.219482),
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      url: 'https://tile.jawg.io/56409daf-4f05-4a48-ac51-71111498ebfb/{z}/{x}/{y}{r}.png?access-token=Cz7HXJ00PURg50N9raXEiBH0H26MzMJ3XbxIKPGqH3JiT7qphNK2FkdjG1joiXfD',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       currentZoom: 11.5,
@@ -142,6 +142,5 @@ div{
   padding: 10px;
 }
 l-map{
-  width: 85vw;
 }
 </style>
