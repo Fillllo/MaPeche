@@ -18,7 +18,7 @@
     </l-map>
     <div id="info" :style="{width: 100-width + 'vw'}">
       <img :src="require('../assets/close.png')" v-if="showCompoMarker || showCreatorMarker" @click="closeCompo()"/>
-      <MarkerInfo class="compo" v-if="showCompoMarker" :marker="openedMarker"></MarkerInfo>
+      <MarkerInfo class="compo" v-if="showCompoMarker" :marker="openedMarker" ref="poisson"></MarkerInfo>
       <MarkerCreator class="compo" v-if="showCreatorMarker" :coords="creatorCoords" :lat="newLat" :lng="newLng"></MarkerCreator>
     </div>
   </div>
@@ -65,7 +65,8 @@ export default {
       isCreating: false,
       newLat: '',
       newLng: '',
-      newLatLng: ''
+      newLatLng: '',
+      listePoissons: []
     }
   },
   methods: {
@@ -101,12 +102,28 @@ export default {
         })
     },
     showCompo: function (marker) {
-      this.mode = 'consult'
-      this.showCompoMarker = true
-      this.showCreatorMarker = false
-      this.width = 75
-      this.openedMarker = marker
-      console.log(marker)
+      if (!this.isCreating) {
+        this.openedMarker = marker
+        this.mode = 'consult'
+        this.showCompoMarker = true
+        this.showCreatorMarker = false
+        this.width = 75
+        console.log(marker)
+        if (this.$refs.poisson != null) {
+          this.$refs.poisson.getPoissons(marker)
+        }
+      } else {
+        this.isCreating = false
+        this.openedMarker = marker
+        this.mode = 'consult'
+        this.showCompoMarker = true
+        this.showCreatorMarker = false
+        this.width = 75
+        console.log(marker)
+        if (this.$refs.poisson != null) {
+          this.$refs.poisson.getPoissons(marker)
+        }
+      }
     },
     closeCompo: function () {
       this.showCompoMarker = false
@@ -114,10 +131,19 @@ export default {
         this.isCreating = false
       }
       this.width = 100
+    },
+    getPoissonsForCreating: function () {
+      store.dispatch('getPoissonsForCreating', {})
+        .then((response) => {
+          response.data.result.forEach((poisson) => {
+            this.listePoissons.push(poisson)
+          })
+        })
     }
   },
   mounted: function () {
     this.getMarkers()
+    this.getPoissonsForCreating()
   },
   async beforeMount () {
   }

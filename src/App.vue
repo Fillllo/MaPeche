@@ -4,7 +4,7 @@
     <img :src="require('./assets/logo.png')" id="logo"/>
     <span id="logo_title">MAPÊCHE</span>
       <div class="menu">
-        <router-link to="/">ACCEUIL</router-link>
+        <router-link to="/">ACCUEIL</router-link>
         <router-link to="/carte" v-if="isLoggedIn">CARTE</router-link>
       </div>
       <div class="login_home_div">
@@ -131,4 +131,17 @@ nav a.router-link-exact-active {
 button, input {
   font-family: 'Open Sans', sans-serif;
 }
+@media screen and (max-width: 660px) {
+  #logo, #logo_title {
+    display: none;
+  }
+  .menu, .login_home_div, .login_home_div button {
+    font-size: 12px !important;
+  }
+  .login_home_div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 </style>

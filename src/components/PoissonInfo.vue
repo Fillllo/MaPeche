@@ -1,13 +1,18 @@
 <template>
     <div id="poissonInfo">
-        <span>Poisson {{ index }}</span>
+        <span>Poisson {{ index + 1 }}</span>
         <div>
-            <input type="text" v-model="nom" placeholder="Nom" @change="emitCurrStateToParent ()">
+            <select v-model="nom" placeholder="Nom" @change="emitCurrStateToParent ()">
+              <option selected>Poisson</option>
+              <option v-for="nomPoisson, index in listePoissons" :key="index" :name="index"> {{ nomPoisson.nom }}</option>
+            </select>
             <input type="number" v-model="taille" placeholder="Taille" @change="emitCurrStateToParent ()">
         </div>
     </div>
 </template>
 <script>
+import store from '../store/store.js'
+
 export default {
   setup () {
   },
@@ -15,7 +20,8 @@ export default {
     return {
       nom: '',
       taille: '',
-      poisson: []
+      poisson: [],
+      listePoissons: store.getters.getPoissons
     }
   },
   props: [
@@ -26,6 +32,9 @@ export default {
       this.poisson.splice(0, 1, this.nom)
       this.poisson.splice(1, 1, this.taille)
       this.$emit('emitCurrStateToParent', this.poisson)
+    },
+    show: function () {
+      console.log(this.listePoissons)
     }
   }
 }
@@ -51,5 +60,8 @@ input{
   width: 8vw;
   padding: 3%;
   margin: 0.3vw;
+}
+select option {
+  color: black;
 }
 </style>
