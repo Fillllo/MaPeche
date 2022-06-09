@@ -132,6 +132,5 @@ input{
     flex-direction: column;
     margin-top: 1vh;
     overflow-y: scroll;
-    height: 100%;
 }
 </style>

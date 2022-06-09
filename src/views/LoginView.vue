@@ -1,6 +1,7 @@
 <template>
     <div class="card">
-        <h1 class="card_title">Connexion</h1>
+        <h1 class="card_title" v-if="mode == 'login'">Connexion</h1>
+        <h1 class="card_title" v-if="mode == 'create'">Inscription</h1>
         <p class="card_subtitle" v-if="mode == 'login'">Tu n'as pas encore de compte ? <span class="switch" @click="switchToCreateAccount">Inscrit toi !</span></p>
         <p class="card_subtitle" v-else>Tu as déja un compte ? <span class="switch" @click="switchToLogin">Connectes toi !</span></p>
         <div class="input_div">
@@ -9,12 +10,12 @@
             <input v-model="pseudo" class="form_input" type="text" placeholder="Pseudo" v-if="mode == 'create'">
             <input v-model="mail" class="form_input" type="email" placeholder="Adresse mail">
             <input v-model="mdp" class="form_input" type="password" placeholder="Mot de passe" id="password">
-            <input type="checkbox" @click="showPassword">Show Password
+            <input type="checkbox" @click="showPassword">Voir le mot de passe
             <button class="button button--disabled" v-if="mode == 'login'" @click="loginAccount">
             <span v-if="getStatus === 'loading'">Connexion en cours...</span>
             <span v-else>Connexion</span>
             </button>
-            <button class="button" :class="{'button--disabled' : !validatedFields}" v-else @click="createAccount">Incription</button>
+            <button class="button" :class="{'button--disabled' : !validatedFields}" v-else @click="createAccount">Inscription</button>
         </div>
     </div>
 </template>
@@ -132,6 +133,7 @@ async function hashMDP (message) {
 <style scoped>
 div{
     height: 90vh;
+    font-family: 'Open Sans', sans-serif;
 }
 .card{
     display: flex;
@@ -141,6 +143,11 @@ div{
     margin: auto;
     text-align: center;
     justify-content: center;
+    background-color:   #e5e5e5  ;
+    padding: 3vw;
+    border-radius: 5px;
+    height: 70vh;
+    margin-top: 5vh;
 }
 .switch{
     text-decoration: underline;
@@ -149,9 +156,27 @@ div{
 .input_div{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 input, button{
     padding: 10px;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    background:  #c6c6c6 ;
+}
+button {
+  border: none;
+  font-size: 20px;
+  width: 15vw;
+  border-radius: 5px;
+
+}
+input {
+  font-size: 15px;
+  width: 20vw;
+  border-radius: 5px;
+  border: none;
+  color: black;
 }
 </style>

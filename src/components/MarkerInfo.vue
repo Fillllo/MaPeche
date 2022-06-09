@@ -3,9 +3,13 @@
         <div>
           <h1>{{ marker[2] }}</h1>
         </div>
-        <div class="poissonList" v-for="poisson, index in poissons" :key="index">
-          <span>{{ poisson.nom }}&nbsp;</span>
-          <span>{{ poisson.taille }}</span>
+        <div class="poissonList">
+          <div class="poissonInfos" v-for="poisson, index in poissons" :key="index">
+            <span id="index">Poisson {{ index + 1 }}</span>
+            <div>
+              <span><strong>{{ poisson.nom }}</strong> de {{ poisson.taille }} cm</span>
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -24,10 +28,17 @@ export default {
     }
   },
   methods: {
-    getPoissons: function () {
+    getPoissons: function (marker) {
       this.poissons = []
+      let curMark
+      console.log(this.$props.marker)
+      if (marker == null) {
+        curMark = this.$props.marker[0]
+      } else {
+        curMark = marker[0]
+      }
       store.dispatch('getMarkerFish', {
-        id_point: this.$props.marker[0]
+        id_point: curMark
       })
         .then((response) => {
           response.data.result.forEach((poisson) => {
@@ -46,8 +57,33 @@ export default {
 .spotInfos{
   display: flex;
   flex-direction: column;
+  margin-left: 1vw;
 }
-.poissonList{
+h1{
+  border-bottom: 1px solid #37474f ;
+  width: 20vw;
+  word-wrap: break-word;
+}
+.poissonList  {
   display: flex;
+  flex-direction: column;
+}
+.poissonInfos{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vh;
+  border-bottom: 1px solid #37474f;
+  width: 15vw;
+}
+.poissonInfos #index{
+  font-size: 15px;
+  width: 5vw;
+}
+.poissonInfos div {
+  display: flex;
+  flex-direction: row;
+}
+.poissonInfos div span{
+  font-size: 20px;
 }
 </style>

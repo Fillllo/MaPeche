@@ -14,7 +14,8 @@ const store = createStore({
       prenom: '',
       markers: '',
       poissons: ''
-    }
+    },
+    nomPoissons: []
   },
   mutations: {
     setStatus: function (state, status) {
@@ -29,8 +30,11 @@ const store = createStore({
     setMarkers: function (state, markers) {
       state.user.markers = markers
     },
-    setPoissons: function (state, poissons) {
+    setMarkerPoissons: function (state, poissons) {
       state.user.poissons = poissons
+    },
+    setPoissons: function (state, poissons) {
+      state.nomPoissons = poissons
     }
   },
   actions: {
@@ -84,7 +88,7 @@ const store = createStore({
       return new Promise((resolve, reject) => {
         instance.post('/prises/_getMarkerFish', spotId)
           .then(function (response) {
-            commit('setPoissons', response.data.result[0])
+            commit('setMarkerPoissons', response.data.result[0])
             resolve(response)
           })
           .catch(function (error) {
@@ -102,11 +106,27 @@ const store = createStore({
             reject(error)
           })
       })
+    },
+    getPoissonsForCreating: ({ commit }) => {
+      return new Promise((resolve, reject) => {
+        instance.post('/poisson/_getFish')
+          .then(function (response) {
+            console.log(response.data.result)
+            commit('setPoissons', response.data.result)
+            resolve(response)
+          })
+          .catch(function (error) {
+            reject(error)
+          })
+      })
     }
   },
   getters: {
     getUser (state) {
       return state.user
+    },
+    getPoissons (state) {
+      return state.nomPoissons
     }
   }
 })
