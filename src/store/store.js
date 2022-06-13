@@ -9,7 +9,7 @@ const store = createStore({
     status: '',
     user: {
       id_compte: -1,
-      pseudo: '',
+      pseudo: 'Test',
       nom: '',
       prenom: '',
       markers: '',
