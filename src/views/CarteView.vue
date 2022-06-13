@@ -44,14 +44,14 @@ export default {
   },
   data () {
     return {
-      zoom: 13,
+      zoom: 6.46,
       width: 100,
-      center: latLng(47.41322, -1.219482),
+      center: latLng(46.1367351, 3.1862265),
       url: 'https://tile.jawg.io/56409daf-4f05-4a48-ac51-71111498ebfb/{z}/{x}/{y}{r}.png?access-token=Cz7HXJ00PURg50N9raXEiBH0H26MzMJ3XbxIKPGqH3JiT7qphNK2FkdjG1joiXfD',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      currentZoom: 6.46,
+      currentCenter: latLng(46.1367351, 3.1862265),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5
