@@ -4,7 +4,7 @@
         <div>
             <select v-model="nom" placeholder="Nom" @change="emitCurrStateToParent ()">
               <option selected>Poisson</option>
-              <option v-for="nomPoisson, index in listePoissons" :key="index" :name="index"> {{ nomPoisson.nom }}</option>
+              <option v-for="nomPoisson, index in listePoissons" :key="index" :name="nomPoisson.id_poisson" :value="nomPoisson.id_poisson"> {{ nomPoisson.nom }}</option>
             </select>
             <input type="number" v-model="taille" placeholder="Taille" @change="emitCurrStateToParent ()">
         </div>

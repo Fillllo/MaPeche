@@ -12,7 +12,7 @@
           :url="url"
           :attribution="attribution"
         />
-        <l-marker v-for="marker, index in markers" :lat-lng="marker[1]" @click="showCompo(marker)" :key="index"></l-marker>
+        <l-marker :icon="icon" v-for="marker, index in markers" :lat-lng="marker[1]" @click="showCompo(marker)" :key="index"></l-marker>
         <l-marker v-if="isCreating" :lat-lng="newLatLng" @click="showCompo(marker)"></l-marker>
         <MarkerInfo class="compo" v-if="showCompoMarker" :marker="openedMarker" :mode="mode">fdssfssff</MarkerInfo>
     </l-map>
@@ -30,7 +30,7 @@
 import store from '../store/store.js'
 import 'leaflet/dist/leaflet.css'
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet'
-import { latLng } from 'leaflet'
+import { latLng, icon } from 'leaflet'
 import MarkerInfo from '../components/MarkerInfo.vue'
 import MarkerCreator from '../components/MarkerCreator.vue'
 
@@ -66,7 +66,12 @@ export default {
       newLat: '',
       newLng: '',
       newLatLng: '',
-      listePoissons: []
+      listePoissons: [],
+      icon: icon({
+        iconUrl: require('../assets/location_pin.png'),
+        iconSize: [40, 40],
+        iconAnchor: [16, 37]
+      })
     }
   },
   methods: {

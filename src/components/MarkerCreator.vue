@@ -40,8 +40,9 @@ export default {
     'lng'
   ],
   methods: {
-    reciveDataFromChild (recivedData, index) {
-      this.poissons[index] = recivedData
+    reciveDataFromChild (recievedData, index) {
+      this.poissons[index] = recievedData
+      console.log(this.poissons)
     },
     createSpot: function () {
       this.id_compte = store.state.user.id_compte
@@ -50,7 +51,8 @@ export default {
         lat: this.$props.lat,
         lng: this.$props.lng,
         nom: this.nom,
-        id_compte: this.id_compte
+        id_compte: this.id_compte,
+        tabFish: this.poissons
       }).then(function (response) {
         console.log(response)
       }, function (error) {
